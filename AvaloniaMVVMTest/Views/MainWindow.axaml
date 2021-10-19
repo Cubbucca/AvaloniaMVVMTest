@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaMVVMTest.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaMVVMTest.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AvaloniaMVVMTest">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+	<StackPanel  VerticalAlignment="Center" Spacing="20">
+	<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="12">
+		<Label Content="Caption:"/>
+		<TextBlock Text="{Binding Caption}" MinHeight="20" HorizontalAlignment="Center"/>
+		<Label Content="Editer:"/>
+		<TextBox Text="{Binding Caption}" HorizontalAlignment="Center"/>
+		<Button Command="{Binding AddToList}" Content="Add To List" HorizontalAlignment="Center">
+			<Button.ContextFlyout>
+				<Flyout>
+					<StackPanel>
+						<TextBlock Text="Test"/>
+						<TextBlock Text="Test1"/>
+						<TextBlock Text="Test2"/>
+						<TextBlock Text="Test3"/>
+					</StackPanel>
+				</Flyout>
+			</Button.ContextFlyout>
+		</Button>
+		<ComboBox Items="{Binding List}" SelectedItem="{Binding Caption}" HorizontalAlignment="Center">
+			<ComboBox.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="_Test"/>
+				</ContextMenu>
+			</ComboBox.ContextMenu>
+		</ComboBox>
+	</StackPanel>
+	<Canvas Width="120" Height="120">
+		<Rectangle Fill="Red" Height="44" Width="44"/>
+		<Rectangle Fill="Blue" Height="44" Width="44" Canvas.Left="20" Canvas.Top="20"/>
+		<Rectangle Fill="Green" Height="44" Width="44" Canvas.Left="40" Canvas.Top="40"/>
+		<Rectangle Fill="Orange" Height="44" Width="44" Canvas.Left="60" Canvas.Top="60"/>
+	</Canvas>
+	</StackPanel>
+
+</Window>
