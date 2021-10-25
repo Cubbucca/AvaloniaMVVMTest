@@ -29,12 +29,22 @@
 				</Flyout>
 			</Button.ContextFlyout>
 		</Button>
-		<ComboBox Items="{Binding List}" SelectedItem="{Binding Caption}" HorizontalAlignment="Center">
+		<ComboBox Items="{Binding List}"
+				SelectedItem="{Binding MiscTask}"
+				HorizontalAlignment="Center">
 			<ComboBox.ContextMenu>
 				<ContextMenu>
 					<MenuItem Header="_Test"/>
 				</ContextMenu>
 			</ComboBox.ContextMenu>
+			<ComboBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal" Spacing="20">
+						<TextBlock Text="{Binding Name}"/>
+						<TextBlock Text="{Binding ID}"/>
+					</StackPanel>
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
 		</ComboBox>
 	</StackPanel>
 	<Canvas Width="120" Height="120">

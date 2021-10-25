@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using ReactiveUI;
 using System.Collections.ObjectModel;
+using AvaloniaMVVMTest.Models;
 
 namespace AvaloniaMVVMTest.ViewModels
 {
@@ -18,12 +19,24 @@ namespace AvaloniaMVVMTest.ViewModels
             {
                 if (value is null) return;
                 this.RaiseAndSetIfChanged(ref caption, value);
+                this.RaisePropertyChanged(nameof(MiscTask));
             }
         }
 
-        private ObservableCollection<string>? list;
+        public ProductionTaskMisc? MiscTask
+        {
+            get => List?.Where(x => x.Name.Equals(Caption)).FirstOrDefault();
+            set
+            {
+                if (value is null) return;
+                Caption = value.Name;
+            }
+        }
 
-        public ObservableCollection<string>? List
+
+        private ObservableCollection<ProductionTaskMisc>? list;
+
+        public ObservableCollection<ProductionTaskMisc>? List
         {
             get => list;
             set => this.RaiseAndSetIfChanged(ref list, value);
@@ -31,11 +44,12 @@ namespace AvaloniaMVVMTest.ViewModels
 
         public void AddToList()
         {
-            if (List is null) List = new ObservableCollection<string>();
-            if (List != null && !List.Where(x => x.Equals(Caption)).Any())
+            if (List is null) List = new ObservableCollection<ProductionTaskMisc>();
+            if (List != null && !List.Where(x => x.Name.Equals(Caption)).Any())
             {
-                List.Add(Caption);
-                List = new ObservableCollection<string>(List.OrderBy(x => x).ToList());
+                var newitem = new ProductionTaskMisc() {ID = Guid.NewGuid(), Name = Caption };
+                List.Add(newitem);
+                List = new ObservableCollection<ProductionTaskMisc>(List.OrderBy(x => x.Name).ToList());
             }
             this.RaisePropertyChanged(nameof(Caption));
         }
