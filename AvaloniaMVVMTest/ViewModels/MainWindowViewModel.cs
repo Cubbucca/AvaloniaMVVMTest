@@ -6,6 +6,7 @@ using System.Text;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using AvaloniaMVVMTest.Models;
+using AvaloniaMVVMTest.Extensions;
 
 namespace AvaloniaMVVMTest.ViewModels
 {
@@ -33,19 +34,24 @@ namespace AvaloniaMVVMTest.ViewModels
             }
         }
 
-
         private ObservableCollection<ProductionTaskMisc>? list;
 
         public ObservableCollection<ProductionTaskMisc>? List
         {
-            get => list;
+            get
+            {
+                if(list is null)
+                    list = ListManipulation<ProductionTaskMisc>.getNewList();
+                return list;
+            }
             set => this.RaiseAndSetIfChanged(ref list, value);
         }
 
         public void AddToList()
         {
-            if (List is null) List = new ObservableCollection<ProductionTaskMisc>();
-            if (List != null && !List.Where(x => x.Name.Equals(Caption)).Any())
+            ListManipulation<ProductionTaskMisc>.anyMatch(List, Caption)?
+                .(new ProductionTaskMisc() { ID = Guid.NewGuid(), Name = Caption })
+                .OrderBy(x => x.Name)
             {
                 var newitem = new ProductionTaskMisc() {ID = Guid.NewGuid(), Name = Caption };
                 List.Add(newitem);
