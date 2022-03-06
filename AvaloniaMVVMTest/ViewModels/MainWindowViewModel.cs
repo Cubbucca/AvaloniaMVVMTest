@@ -11,13 +11,12 @@ namespace AvaloniaMVVMTest.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private string caption = string.Empty;
-        public string Caption
+        private string? caption;
+        public string? Caption
         { 
             get => caption;
             set
             {
-                if (value is null) return;
                 this.RaiseAndSetIfChanged(ref caption, value);
                 this.RaisePropertyChanged(nameof(MiscTask));
             }
@@ -26,33 +25,25 @@ namespace AvaloniaMVVMTest.ViewModels
         public ProductionTaskMisc? MiscTask
         {
             get => List?.Where(x => x.Name.Equals(Caption)).FirstOrDefault();
-            set
-            {
-                if (value is null) return;
-                Caption = value.Name;
-            }
+            set => Caption = value?.Name;
         }
 
         private ObservableCollectionExtended<ProductionTaskMisc>? list;
 
         public ObservableCollectionExtended<ProductionTaskMisc>? List
         {
-            get
-            {
-                if (list is null)
-                    list = new ObservableCollectionExtended<ProductionTaskMisc>();
-                return list;
-            }
+            get => list ??= new ObservableCollectionExtended<ProductionTaskMisc>();
             set => this.RaiseAndSetIfChanged(ref list, value);
         }
 
         public void AddToList()
         {
-            if(List?
-                .NoMatch(List, Caption, new[] {nameof(ProductionTaskMisc.Name)})?
+            if (List?
+                .NoMatch(List, Caption, new[] { nameof(ProductionTaskMisc.Name) })?
                 .AddItem(new ProductionTaskMisc() { ID = Guid.NewGuid(), Name = Caption })
                 .OrderBy(x => x.Name)
-                is ObservableCollectionExtended<ProductionTaskMisc> locallist)
+                .ToList()
+                is List<ProductionTaskMisc> locallist)
             {
                 List = new ObservableCollectionExtended<ProductionTaskMisc>(locallist);
                 this.RaisePropertyChanged(nameof(Caption));

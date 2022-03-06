@@ -12,7 +12,7 @@ namespace AvaloniaMVVMTest.Models
         public ObservableCollectionExtended() : base() { }
         public ObservableCollectionExtended(IEnumerable<T> collection):base(collection) { }
 
-        public Func<ObservableCollectionExtended<T>, string, string[], ObservableCollectionExtended<T>?> anyMatch = (list, tomatch, fieldtomatch) =>
+        public Func<ObservableCollectionExtended<T>, string?, string[], ObservableCollectionExtended<T>?> anyMatch = (list, tomatch, fieldtomatch) =>
         {
             foreach(var phrase in fieldtomatch)
             {
@@ -22,7 +22,7 @@ namespace AvaloniaMVVMTest.Models
             return  null;
         };
 
-        public Func<ObservableCollectionExtended<T>, string ,string[], ObservableCollectionExtended<T>?> NoMatch = (list, tomatch, fieldtomatch) =>
+        public Func<ObservableCollectionExtended<T>, string? ,string[], ObservableCollectionExtended<T>?> NoMatch = (list, tomatch, fieldtomatch) =>
         {
             return (list.anyMatch(list,tomatch, fieldtomatch) == null) ? new ObservableCollectionExtended<T>(list) : null;
         };
