@@ -48,13 +48,13 @@ namespace AvaloniaMVVMTest.ViewModels
 
         public void AddToList()
         {
-            var newlist = List?
+            if(List?
                 .NoMatch(List, Caption, new[] {nameof(ProductionTaskMisc.Name)})?
                 .AddItem(new ProductionTaskMisc() { ID = Guid.NewGuid(), Name = Caption })
-                .OrderBy(x => x.Name);
-            if (newlist != null)
+                .OrderBy(x => x.Name)
+                is ObservableCollectionExtended<ProductionTaskMisc> locallist)
             {
-                List = new ObservableCollectionExtended<ProductionTaskMisc>(newlist);
+                List = new ObservableCollectionExtended<ProductionTaskMisc>(locallist);
                 this.RaisePropertyChanged(nameof(Caption));
             }
         }
