@@ -17,18 +17,32 @@
 		<TextBlock Text="{Binding Caption}" MinHeight="20" HorizontalAlignment="Center"/>
 		<Label Content="Editer:"/>
 		<TextBox Text="{Binding Caption}" HorizontalAlignment="Center"/>
-		<Button Command="{Binding AddToList}" Content="Add To List" HorizontalAlignment="Center">
-			<Button.ContextFlyout>
-				<Flyout>
-					<StackPanel>
-						<TextBlock Text="Test"/>
-						<TextBlock Text="Test1"/>
-						<TextBlock Text="Test2"/>
-						<TextBlock Text="Test3"/>
-					</StackPanel>
-				</Flyout>
-			</Button.ContextFlyout>
-		</Button>
+		<StackPanel  VerticalAlignment="Center">
+			<Button Command="{Binding AddToList}" Content="Add To List" HorizontalAlignment="Center">
+				<Button.ContextFlyout>
+					<Flyout>
+						<StackPanel>
+							<TextBlock Text="Test"/>
+							<TextBlock Text="Test1"/>
+							<TextBlock Text="Test2"/>
+							<TextBlock Text="Test3"/>
+						</StackPanel>
+					</Flyout>
+				</Button.ContextFlyout>
+			</Button>
+			<Button Command="{Binding AddToListBind}" Content="Add To List Bind" HorizontalAlignment="Center">
+				<Button.ContextFlyout>
+					<Flyout>
+						<StackPanel>
+							<TextBlock Text="Test"/>
+							<TextBlock Text="Test1"/>
+							<TextBlock Text="Test2"/>
+							<TextBlock Text="Test3"/>
+						</StackPanel>
+					</Flyout>
+				</Button.ContextFlyout>
+			</Button>
+		</StackPanel>
 		<ComboBox Items="{Binding List}"
 				SelectedItem="{Binding MiscTask}"
 				HorizontalAlignment="Center">

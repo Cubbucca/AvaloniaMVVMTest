@@ -8,7 +8,7 @@ namespace AvaloniaMVVMTest.Models
 {
     public class Maybe<T> where T : class
     {
-        private readonly T? value;
+        public readonly T? value;
 
         public Maybe(T someValue)
         {

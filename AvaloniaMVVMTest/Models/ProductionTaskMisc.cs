@@ -10,6 +10,12 @@ namespace AvaloniaMVVMTest.Models
 {
     public class ProductionTaskMisc : ReactiveObject, IProductionTask
     {
+        public ProductionTaskMisc(Guid id, string name)
+        {
+            ID = id;
+            Name = name;
+        }
+
         private Guid guid;
         public Guid ID
         {
