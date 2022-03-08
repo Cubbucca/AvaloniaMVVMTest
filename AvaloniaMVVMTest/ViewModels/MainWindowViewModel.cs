@@ -13,8 +13,8 @@ namespace AvaloniaMVVMTest.ViewModels
     {
         private string? caption;
         public string? Caption
-        { 
-            get => caption;
+        {
+            get => caption ??= GetDoctor(5);
             set
             {
                 this.RaiseAndSetIfChanged(ref caption, value);
@@ -32,7 +32,7 @@ namespace AvaloniaMVVMTest.ViewModels
 
         public ObservableCollectionExtended<ProductionTaskMisc>? List
         {
-            get => list ??= new ObservableCollectionExtended<ProductionTaskMisc>();
+            get => list ??= this[1,3,5,100];
             set => this.RaiseAndSetIfChanged(ref list, value);
         }
 
@@ -75,5 +75,26 @@ namespace AvaloniaMVVMTest.ViewModels
                 this.RaisePropertyChanged(nameof(Caption));
             }
         }
+        public Func<int, string> GetDoctor =
+            new Dictionary<int, string>
+            {
+                {1, "William" },
+                {2, "Patrick" },
+                {3, "Jon Pertwee" },
+                {4, "Tom Baker" },
+                {5, "Peter Davison" }
+            }.ToLookupWithDefault("NotFound");
+        public ObservableCollectionExtended<ProductionTaskMisc> this[params int[] indexs] => GenNew(indexs.Select(GetDoctor));
+
+        public ObservableCollectionExtended<ProductionTaskMisc> GenNew(IEnumerable<string> strings)
+        {
+            var result = new ObservableCollectionExtended<ProductionTaskMisc>();
+            foreach (string s in strings)
+            {
+                result.Add(newtask(s));
+            }
+            return result;
+        }
+
     }
 }
