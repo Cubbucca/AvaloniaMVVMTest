@@ -6,6 +6,7 @@ using System.Text;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using AvaloniaMVVMTest.Models;
+using ReactiveUI.Fody.Helpers;
 
 namespace AvaloniaMVVMTest.ViewModels
 {
@@ -34,6 +35,34 @@ namespace AvaloniaMVVMTest.ViewModels
         {
             get => list ??= this[1,3,5,100];
             set => this.RaiseAndSetIfChanged(ref list, value);
+        }
+        private Person? selectedperson;
+        public Person? SelectedPerson
+        {
+            get => selectedperson ??= People?.FirstOrDefault();
+            set => this.RaiseAndSetIfChanged(ref selectedperson, value);
+        }
+
+        private ObservableCollectionExtended<Person>? people;
+
+        public ObservableCollectionExtended<Person>? People
+        {
+            get => people ??= GetPeople();
+            set => this.RaiseAndSetIfChanged(ref people, value);
+        }
+
+        private ObservableCollectionExtended<Person> GetPeople()
+        {
+            return new ObservableCollectionExtended<Person>()
+            {
+                new Person("Timothy Morty", "7/4/1986".PraseDate() ,Gender.Male,new[]{100000M,55000M,100.70M }),
+                new Person("SS", "7/4/50".PraseDate() ,Gender.Male,new[]{100000M,55100M,670.70M }),
+                new Person("Looooooooooooooooooooooooong", "1/1/3014".PraseDate() ,Gender.Female,new[]{1023000M,5500M,100.70M }),
+                new Person("Sam Niel", "7/4/97".PraseDate() ,Gender.Male,new[]{-100000M,55000M,-100.70M }),
+                new Person("Ayeaye Captain", "10/9/1904".PraseDate() ,Gender.None,new[]{100000M,-55000M,100.70M }),
+                new Person("Jimmy Jammer", "13/1/1999".PraseDate() ,Gender.Male,new[]{-100000M,-55000M,100.70M}),
+            };
+
         }
 
         private ProductionTaskMisc newtask(string name)

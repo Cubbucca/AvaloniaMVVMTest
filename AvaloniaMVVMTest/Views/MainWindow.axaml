@@ -67,6 +67,34 @@
 		<Rectangle Fill="Green" Height="44" Width="44" Canvas.Left="40" Canvas.Top="40"/>
 		<Rectangle Fill="Orange" Height="44" Width="44" Canvas.Left="60" Canvas.Top="60"/>
 	</Canvas>
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="12">
+			<ComboBox Items="{Binding People}"
+					SelectedItem="{Binding SelectedPerson}"
+					HorizontalAlignment="Center">
+				<ComboBox.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="People"/>
+					</ContextMenu>
+				</ComboBox.ContextMenu>
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal" Spacing="20">
+							<TextBlock Text="{Binding Name}"/>
+						</StackPanel>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+		</StackPanel>
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="12">
+			<Label Content="Name:"/>
+			<TextBlock Text="{Binding SelectedPerson.Name, FallbackValue=...}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			<Label Content="Age:"/>
+			<TextBlock Text="{Binding SelectedPerson.Age, FallbackValue=...}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			<Label Content="Gender:"/>
+			<TextBlock Text="{Binding SelectedPerson.Gender, FallbackValue=...}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			<Label Content="Wealth:"/>
+			<TextBlock Text="{Binding SelectedPerson.Wealth, FallbackValue=...}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</StackPanel>
 	</StackPanel>
 
 </Window>
