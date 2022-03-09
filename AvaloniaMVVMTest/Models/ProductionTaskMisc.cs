@@ -26,5 +26,6 @@ namespace AvaloniaMVVMTest.Models
         public string Name { get; set; } = string.Empty;
         private int intgetterprivate;
         public int IntSetter { set => intgetterprivate = value;}
+        public string? Title { get => this.GetClassTitle(); }
     }
 }

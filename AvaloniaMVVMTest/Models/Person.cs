@@ -49,5 +49,6 @@ namespace AvaloniaMVVMTest.Models
         public Gender Gender { get; set; }
         [Reactive]
         public decimal Wealth { get; set; }
+        public string? Title { get => this.GetClassTitle(); }
     }
 }

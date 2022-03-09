@@ -22,6 +22,7 @@ namespace AvaloniaMVVMTest.ViewModels
                 this.RaisePropertyChanged(nameof(MiscTask));
             }
         }
+        public string? Title { get => this.GetClassTitle(); }
 
         public ProductionTaskMisc? MiscTask
         {

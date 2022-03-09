@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaMVVMTest.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="AvaloniaMVVMTest">
+        Title="{Binding Title}">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -56,6 +56,7 @@
 					<StackPanel Orientation="Horizontal" Spacing="20">
 						<TextBlock Text="{Binding Name}"/>
 						<TextBlock Text="{Binding ID}"/>
+						<Label Content="{Binding Title}"/>
 					</StackPanel>
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
@@ -86,6 +87,7 @@
 			</ComboBox>
 		</StackPanel>
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="12">
+			<Label Content="{Binding SelectedPerson.Title}"/>
 			<Label Content="Name:"/>
 			<TextBlock Text="{Binding SelectedPerson.Name, FallbackValue=...}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 			<Label Content="Age:"/>
