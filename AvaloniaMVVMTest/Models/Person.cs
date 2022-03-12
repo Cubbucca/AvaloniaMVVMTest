@@ -51,4 +51,5 @@ namespace AvaloniaMVVMTest.Models
         public decimal Wealth { get; set; }
         public string? Title { get => this.GetClassTitle(); }
     }
+
 }
