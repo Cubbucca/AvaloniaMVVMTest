@@ -7,11 +7,15 @@ using ReactiveUI;
 using System.Collections.ObjectModel;
 using AvaloniaMVVMTest.Models;
 using ReactiveUI.Fody.Helpers;
+using AvaloniaMVVMTest.Views;
+using System.Threading.Tasks;
 
 namespace AvaloniaMVVMTest.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        public MainWindowViewModel():base(null) { }
+        public MainWindowViewModel(object view) : base(view) { }
         private string? caption;
         public string? Caption
         {
@@ -41,9 +45,20 @@ namespace AvaloniaMVVMTest.ViewModels
         public Person? SelectedPerson
         {
             get => selectedperson ??= People?.FirstOrDefault();
-            set => this.RaiseAndSetIfChanged(ref selectedperson, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref selectedperson, value);
+                QuestionUser();
+            }
         }
+        private async void QuestionUser()
+        {
+            if (window is not null)
+            {
 
+                var result = await DialogPrompt.Prompt(window, "What you want?", "Aye aye captian!", PromptType.GoodQuestion, "...", "Gansta");
+            }
+        }
         private ObservableCollectionExtended<Person>? people;
 
         public ObservableCollectionExtended<Person>? People
@@ -66,7 +81,7 @@ namespace AvaloniaMVVMTest.ViewModels
 
         }
 
-        private ProductionTaskMisc newtask(string name)
+        private ProductionTaskMisc? newtask(string name)
         {
             if (name is null) return null;
             return new ProductionTaskMisc(Guid.NewGuid(), name);

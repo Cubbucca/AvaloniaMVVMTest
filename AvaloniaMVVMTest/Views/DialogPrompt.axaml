@@ -1,0 +1,25 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		MinWidth="300"
+        MinHeight="150"
+		WindowState="Normal"
+		WindowStartupLocation="CenterOwner"
+		CanResize="False"
+		ShowInTaskbar="False"		
+        x:Class="AvaloniaMVVMTest.Views.DialogPrompt"
+        Title="Question Box!"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}">
+	<StackPanel Name="myuc" Margin="5">
+		<Label Name="txtQuestion" Content="How Old Are You:" Margin="5"/>
+		<TextBox Name="txtResponse" Margin="5"/>
+		<TextBox Name="txtResponse2" Margin="5" IsVisible="False"/>
+		<TextBox Name="passwordTxt" Margin="5" IsVisible="False"/>
+		<StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+			<Button Content="Ok" IsDefault="True" Margin="5" Name="btnOk" Click="btnOk_Click"/>
+			<Button Content="Cancel" IsCancel="True" Margin="5" Name="btnCancel" Click="btnCancel_Click"/>
+		</StackPanel>
+	</StackPanel>
+</Window>

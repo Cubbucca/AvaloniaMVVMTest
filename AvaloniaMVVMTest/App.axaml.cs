@@ -12,15 +12,14 @@ namespace AvaloniaMVVMTest
         {
             AvaloniaXamlLoader.Load(this);
         }
-
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel(),
-                };
+                var view = new MainWindow();
+                var model = new MainWindowViewModel(view);
+                view.DataContext = model;
+                desktop.MainWindow = view;
             }
 
             base.OnFrameworkInitializationCompleted();

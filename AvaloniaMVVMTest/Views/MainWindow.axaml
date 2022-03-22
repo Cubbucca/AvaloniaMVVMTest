@@ -1,6 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:AvaloniaMVVMTest.ViewModels"
+		xmlns:v="using:AvaloniaMVVMTest.Views"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -30,7 +31,7 @@
 					</Flyout>
 				</Button.ContextFlyout>
 			</Button>
-			<Button Command="{Binding AddToListBind}" Content="Add To List Bind" HorizontalAlignment="Center">
+			<Button Name="PasswordButton" Command="{Binding AddToListBind}" Content="Add To List Bind" HorizontalAlignment="Center">
 				<Button.ContextFlyout>
 					<Flyout>
 						<StackPanel>
@@ -42,6 +43,14 @@
 					</Flyout>
 				</Button.ContextFlyout>
 			</Button>
+			<!--<Popup Name="PasswordPopup"
+				   IsOpen="{Binding ShowPassword, FallbackValue=True}"
+				   WindowManagerAddShadowHint="False"
+				   StaysOpen="True"
+				   PlacementMode="Bottom"
+				   PlacementTarget="{Binding ElementName=PasswordButton}">
+				<v:PopupControl/>
+		</Popup>-->
 		</StackPanel>
 		<ComboBox Items="{Binding List}"
 				SelectedItem="{Binding MiscTask}"

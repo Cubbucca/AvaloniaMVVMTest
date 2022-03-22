@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="90"
+             x:Class="AvaloniaMVVMTest.Views.PopupControl"
+			 DataContext="{Binding RelativeSource={RelativeSource Self}}"
+			 KeyUp="AKeyUpEvent">
+	<StackPanel	Spacing="10" Orientation="Vertical" Margin="10">
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+			<Label Content="Password:" HorizontalContentAlignment="Right"/>
+			<TextBox Text="{Binding Password}" PasswordChar="*" RevealPassword="{Binding ShowRaw}" Width="250"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="20">
+			<Button Grid.Column="0" Grid.Row="1" Content="OK" Command="{Binding OKClicked}" HorizontalAlignment="Center"/>
+			<Button Grid.Column="1" Grid.Row="1" Content="Cancel" Command="{Binding CancelClicked}" HorizontalAlignment="Center"/>
+		</StackPanel>
+	</StackPanel>
+</UserControl>
