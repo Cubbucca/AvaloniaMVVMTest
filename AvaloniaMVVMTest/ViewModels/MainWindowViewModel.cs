@@ -55,7 +55,6 @@ namespace AvaloniaMVVMTest.ViewModels
         {
             if (window is not null)
             {
-
                 var result = await DialogPrompt.Prompt(window, "What you want?", "Aye aye captian!", PromptType.GoodQuestion, "...", "Gansta");
             }
         }
