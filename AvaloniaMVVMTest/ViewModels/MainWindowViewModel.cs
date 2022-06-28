@@ -55,7 +55,7 @@ namespace AvaloniaMVVMTest.ViewModels
         {
             if (window is not null)
             {
-                var result = await DialogPrompt.Prompt(window, "What you want?", "Aye aye captian!", PromptType.GoodQuestion, "...", "Gansta");
+                await DialogPrompt.Prompt(window, "What you want?", "Aye aye captian!", PromptType.GoodQuestion, "...", "Gansta");
             }
         }
         private ObservableCollectionExtended<Person>? people;
@@ -66,7 +66,7 @@ namespace AvaloniaMVVMTest.ViewModels
             set => this.RaiseAndSetIfChanged(ref people, value);
         }
 
-        private ObservableCollectionExtended<Person> GetPeople()
+        private static ObservableCollectionExtended<Person> GetPeople()
         {
             return new ObservableCollectionExtended<Person>()
             {
@@ -80,7 +80,7 @@ namespace AvaloniaMVVMTest.ViewModels
 
         }
 
-        private ProductionTaskMisc? newtask(string name)
+        private static ProductionTaskMisc? Newtask(string name)
         {
             if (name is null) return null;
             return new ProductionTaskMisc(Guid.NewGuid(), name);
@@ -88,35 +88,39 @@ namespace AvaloniaMVVMTest.ViewModels
 
         public void AddToList()
         {
-            if (Caption == null) return;
-            if (List?
-                .NoMatch(List, Caption, new[] { nameof(ProductionTaskMisc.Name) })?
-                .AddItem(newtask(Caption))?
-                .OrderBy(x => x.Name)
-                .ToList()
-                is List<ProductionTaskMisc> locallist)
+            if (Caption is String _caption && Newtask(_caption) is ProductionTaskMisc newtask)
             {
-                List = new ObservableCollectionExtended<ProductionTaskMisc>(locallist);
-                this.RaisePropertyChanged(nameof(Caption));
+                if (List?
+                    .NoMatch(List, _caption, new[] { nameof(ProductionTaskMisc.Name) })?
+                    .AddItem(newtask)?
+                    .OrderBy(x => x.Name)
+                    .ToList()
+                    is List<ProductionTaskMisc> locallist)
+                {
+                    List = new ObservableCollectionExtended<ProductionTaskMisc>(locallist);
+                    this.RaisePropertyChanged(nameof(Caption));
+                }
             }
         }
 
-        private Maybe<ObservableCollectionExtended<ProductionTaskMisc>> GetList(ObservableCollectionExtended<ProductionTaskMisc>? locallist)
+        private static Maybe<ObservableCollectionExtended<ProductionTaskMisc>> GetList(ObservableCollectionExtended<ProductionTaskMisc>? locallist)
         {
             return (locallist == null) ? Maybe<ObservableCollectionExtended<ProductionTaskMisc>>.None() : new Maybe<ObservableCollectionExtended<ProductionTaskMisc>>(locallist);
         }
         public void AddToListBind()
         {
-            if (Caption == null) return;
-            List<ProductionTaskMisc>? listwithaddeditemandorderdbyname = GetList(List)
-                ?.Bind(nm => nm.NoMatchBind(Caption, new[] { nameof(ProductionTaskMisc.Name) }))
-                ?.Bind(a => a.AddItemBind(newtask(Caption)))
+            if (Caption is String _caption && Newtask(_caption) is ProductionTaskMisc newtask)
+            {
+                List<ProductionTaskMisc>? listwithaddeditemandorderdbyname = GetList(List)
+                ?.Bind(nm => nm.NoMatchBind(_caption, new[] { nameof(ProductionTaskMisc.Name) }))
+                ?.Bind(a => a.AddItemBind(newtask))
                 ?.Bind(o => o.OrderByBind(nameof(ProductionTaskMisc.Name)))
                 ?.value?.ToList();
-            if (listwithaddeditemandorderdbyname is List<ProductionTaskMisc> locallist)
-            {
-                List = new ObservableCollectionExtended<ProductionTaskMisc>(locallist);
-                this.RaisePropertyChanged(nameof(Caption));
+                if (listwithaddeditemandorderdbyname is List<ProductionTaskMisc> locallist)
+                {
+                    List = new ObservableCollectionExtended<ProductionTaskMisc>(locallist);
+                    this.RaisePropertyChanged(nameof(Caption));
+                }
             }
         }
         public Func<int, string> GetDoctor =
@@ -130,12 +134,13 @@ namespace AvaloniaMVVMTest.ViewModels
             }.ToLookupWithDefault("NotFound");
         public ObservableCollectionExtended<ProductionTaskMisc> this[params int[] indexs] => GenNew(indexs.Select(GetDoctor));
 
-        public ObservableCollectionExtended<ProductionTaskMisc> GenNew(IEnumerable<string> strings)
+        public static ObservableCollectionExtended<ProductionTaskMisc> GenNew(IEnumerable<string> strings)
         {
             var result = new ObservableCollectionExtended<ProductionTaskMisc>();
             foreach (string s in strings)
             {
-                result.Add(newtask(s));
+                if (Newtask(s) is ProductionTaskMisc newtask)
+                    result.Add(newtask);
             }
             return result;
         }

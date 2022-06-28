@@ -24,33 +24,30 @@ namespace AvaloniaMVVMTest.Views
         private Control? lastdraged;
         private async void DoDrag(object? sender, PointerPressedEventArgs e)
         {
-            if (e.MouseButton == MouseButton.Left)
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
-                var control = sender as Control;
-                if(sender is Control rec)
+                if(sender is Control control)
                 {
-                    lastdraged = rec;
+                    lastdraged = control;
+                    DataObject dragData = new DataObject();
+                    dragData.Set("control", control);
+                    var result = await DragDrop.DoDragDrop(e, dragData, DragDropEffects.Move);
                 }
-                control.Focusable = false;
-                DataObject dragData = new DataObject();
-                dragData.Set("task", control);
-                var result = await DragDrop.DoDragDrop(e, dragData, DragDropEffects.Move);
             }
         }
         private int overs = 0;
         private void DragOver(object? sender, DragEventArgs e)
         {
-            e.DragEffects = e.DragEffects & (DragDropEffects.Move);
             if(lastdraged is Control rec)
             {
                 if (lastdraged is Label lb && lb.Name == "ShowOvers")
                 {
                     lb.Content = $"{++overs}";
                 }
-                var x = e.GetPosition(sender as Control).X;
-                var y = e.GetPosition(sender as Control).Y;
-                Canvas.SetLeft(rec, x-22);
-                Canvas.SetTop(rec, y-22);
+                var x = e.GetPosition(this).X;
+                var y = e.GetPosition(this).Y;
+                Canvas.SetLeft(rec, x - 22);
+                Canvas.SetTop(rec, y - 22);
             }
         }
     }
