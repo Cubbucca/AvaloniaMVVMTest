@@ -15,6 +15,7 @@
     </Design.DataContext>
 	<Grid>
 	<Canvas Grid.Column="0" Grid.Row="0" ZIndex="10">
+		<Ellipse Fill="Red" Height="20" Width="20" Canvas.Left="160" Canvas.Top="160"/>
 		<Rectangle PointerPressed="DoDrag" Fill="Red" Height="44" Width="44"/>
 		<Rectangle PointerPressed="DoDrag" Fill="Blue" Height="44" Width="44" Canvas.Left="20" Canvas.Top="20"/>
 		<Rectangle PointerPressed="DoDrag" Fill="Green" Height="44" Width="44" Canvas.Left="40" Canvas.Top="40"/>
