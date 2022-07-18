@@ -64,21 +64,22 @@ namespace AvaloniaMVVMTest.Views
                     overlay.Background = new SolidColorBrush(Color.Parse("Transparent"));
                     return;
                 }
-                var overlaycolor = Color.FromArgb(124, 75, 75, 0);
+                var overlaycolor = Color.FromArgb(124, 200, 200, 0);
                 var max = sv.Extent.Height - sv.Height;
                 overlay.Height = sv.Height;
                 var current = sv.Offset.Y;
                 var gradient = new LinearGradientBrush();
                 gradient.StartPoint = RelativePoint.Parse("0%,0%");
                 gradient.EndPoint = RelativePoint.Parse("0%,100%");
+                var percent = 15 / overlay.Height;
                 if (current > 0)
                 {
                     gradient.GradientStops.Add(new GradientStop() { Color = overlaycolor, Offset = 0.0 });
-                    gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 0.2 });
+                    gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = percent });
                 }
                 if (current < max)
                 {
-                    gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 0.8 });
+                    gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 1 - percent });
                     gradient.GradientStops.Add(new GradientStop() { Color = overlaycolor, Offset = 1.0 });
                 }
                 overlay.Background = gradient;
