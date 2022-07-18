@@ -103,7 +103,7 @@
 		
 			<Grid>
 			<StackPanel x:Name="overlay" Background="White" ZIndex="10" Grid.Column="0" VerticalAlignment="Top" IsHitTestVisible="False"/>
-			<ScrollViewer x:Name="scrollview" VerticalScrollBarVisibility="Auto" Height="80" Grid.Column="0" ScrollChanged="ScrollViewChanged">
+			<ScrollViewer x:Name="scrollview" VerticalScrollBarVisibility="Auto" Height="100" Grid.Column="0" ScrollChanged="ScrollViewChanged">
 			<StackPanel Orientation="Vertical">
 			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="12">
 				<Label Content="1"/>

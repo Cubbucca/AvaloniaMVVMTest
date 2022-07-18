@@ -58,6 +58,12 @@ namespace AvaloniaMVVMTest.Views
             if (sender is ScrollViewer sv)
             {
                 var overlay = sv.FindControl<StackPanel>("overlay");
+                //Cant use VerticalScrollBarVisibility because it is set to Auto
+                if ((sv.Extent.Height - sv.Height) < 1)
+                {
+                    overlay.Background = new SolidColorBrush(Color.Parse("Transparent"));
+                    return;
+                }
                 var overlaycolor = Color.FromArgb(124, 75, 75, 0);
                 var max = sv.Extent.Height - sv.Height;
                 overlay.Height = sv.Height;
