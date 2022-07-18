@@ -18,7 +18,6 @@ namespace AvaloniaMVVMTest.Views
 #endif
             AddHandler(DragDrop.DragOverEvent, DragOver);
             var sv = this.FindControl<ScrollViewer>("scrollview");
-            sv.ScrollChanged += new System.EventHandler<ScrollChangedEventArgs>(ScrollViewChanged);
         }
 
         private void InitializeComponent()
