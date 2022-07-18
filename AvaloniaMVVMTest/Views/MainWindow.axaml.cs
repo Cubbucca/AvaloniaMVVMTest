@@ -62,34 +62,20 @@ namespace AvaloniaMVVMTest.Views
                 var max = sv.Extent.Height - sv.Height;
                 overlay.Height = sv.Height;
                 var current = sv.Offset.Y;
-                if(current > 0 && current < max)
+                var gradient = new LinearGradientBrush();
+                gradient.StartPoint = RelativePoint.Parse("0%,0%");
+                gradient.EndPoint = RelativePoint.Parse("0%,100%");
+                if (current > 0)
                 {
-                    var gradient = new LinearGradientBrush();
-                    gradient.StartPoint = RelativePoint.Parse("0%,0%");
-                    gradient.EndPoint = RelativePoint.Parse("0%,100%");
                     gradient.GradientStops.Add(new GradientStop() { Color = overlaycolor, Offset = 0.0 });
                     gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 0.2 });
+                }
+                if (current < max)
+                {
                     gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 0.8 });
                     gradient.GradientStops.Add(new GradientStop() { Color = overlaycolor, Offset = 1.0 });
-                    overlay.Background = gradient;                }
-                if(current == max)
-                {
-                    var gradient = new LinearGradientBrush();
-                    gradient.StartPoint = RelativePoint.Parse("0%,0%");
-                    gradient.EndPoint = RelativePoint.Parse("0%,100%");
-                    gradient.GradientStops.Add(new GradientStop() { Color = overlaycolor, Offset = 0.0 });
-                    gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 0.2 });
-                    overlay.Background = gradient;
                 }
-                if (current == 0)
-                {
-                    var gradient = new LinearGradientBrush();
-                    gradient.StartPoint = RelativePoint.Parse("0%,0%");
-                    gradient.EndPoint = RelativePoint.Parse("0%,100%");
-                    gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 0.8 });
-                    gradient.GradientStops.Add(new GradientStop() { Color = overlaycolor, Offset = 1.0 });
-                    overlay.Background = gradient;
-                }
+                overlay.Background = gradient;
             }
         }
     }
