@@ -55,7 +55,12 @@ namespace AvaloniaMVVMTest.ViewModels
         {
             if (window is not null)
             {
-                await DialogPrompt.Prompt(window, "What you want?", "Aye aye captian!", PromptType.GoodQuestion, "...", "Gansta");
+                var result = await DialogPrompt.Prompt(window, "What you want?", "Aye aye captian!", PromptType.GoodQuestion, "...", "Gansta");
+                if(result is String str)
+                {
+                    Caption += $" {str}";
+                    this.RaisePropertyChanged(nameof(Caption));
+                }
             }
         }
         private ObservableCollectionExtended<Person>? people;

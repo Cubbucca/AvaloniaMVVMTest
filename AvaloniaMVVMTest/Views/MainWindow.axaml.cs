@@ -3,6 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+using System;
 
 namespace AvaloniaMVVMTest.Views
 {
@@ -15,6 +17,8 @@ namespace AvaloniaMVVMTest.Views
             this.AttachDevTools();
 #endif
             AddHandler(DragDrop.DragOverEvent, DragOver);
+            var sv = this.FindControl<ScrollViewer>("scrollview");
+            sv.ScrollChanged += new System.EventHandler<ScrollChangedEventArgs>(ScrollViewChanged);
         }
 
         private void InitializeComponent()
@@ -48,6 +52,45 @@ namespace AvaloniaMVVMTest.Views
                 var y = e.GetPosition(this).Y;
                 Canvas.SetLeft(rec, x - 22);
                 Canvas.SetTop(rec, y - 22);
+            }
+        }
+        private void ScrollViewChanged(object? sender, ScrollChangedEventArgs args)
+        {
+            if (sender is ScrollViewer sv)
+            {
+                var overlay = sv.FindControl<StackPanel>("overlay");
+                var overlaycolor = Color.FromArgb(124, 75, 75, 0);
+                var max = sv.Extent.Height - sv.Height;
+                overlay.Height = sv.Height;
+                var current = sv.Offset.Y;
+                if(current > 0 && current < max)
+                {
+                    var gradient = new LinearGradientBrush();
+                    gradient.StartPoint = RelativePoint.Parse("0%,0%");
+                    gradient.EndPoint = RelativePoint.Parse("0%,100%");
+                    gradient.GradientStops.Add(new GradientStop() { Color = overlaycolor, Offset = 0.0 });
+                    gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 0.2 });
+                    gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 0.8 });
+                    gradient.GradientStops.Add(new GradientStop() { Color = overlaycolor, Offset = 1.0 });
+                    overlay.Background = gradient;                }
+                if(current == max)
+                {
+                    var gradient = new LinearGradientBrush();
+                    gradient.StartPoint = RelativePoint.Parse("0%,0%");
+                    gradient.EndPoint = RelativePoint.Parse("0%,100%");
+                    gradient.GradientStops.Add(new GradientStop() { Color = overlaycolor, Offset = 0.0 });
+                    gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 0.2 });
+                    overlay.Background = gradient;
+                }
+                if (current == 0)
+                {
+                    var gradient = new LinearGradientBrush();
+                    gradient.StartPoint = RelativePoint.Parse("0%,0%");
+                    gradient.EndPoint = RelativePoint.Parse("0%,100%");
+                    gradient.GradientStops.Add(new GradientStop() { Color = Color.Parse("Transparent"), Offset = 0.8 });
+                    gradient.GradientStops.Add(new GradientStop() { Color = overlaycolor, Offset = 1.0 });
+                    overlay.Background = gradient;
+                }
             }
         }
     }
